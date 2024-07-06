@@ -18,6 +18,7 @@ app.use(express.json()); // <=== Enable JSON body parser
 // Use routes
 app.use('/', router);
 
+
 // Start Express server
 app.listen(port, () => {
   // Callback function when server is successfully started

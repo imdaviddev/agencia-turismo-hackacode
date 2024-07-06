@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-
+import { Employee } from '../models/employees.models';
 // New Router instance
 const router = Router();
 
