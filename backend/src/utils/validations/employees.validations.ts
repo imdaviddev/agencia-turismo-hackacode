@@ -1,9 +1,10 @@
 import { Employee } from "../../models/employees.models";
-
-function validateEmployee(params:Employee) {
+import {
+    Request,
+    Response,
+    NextFunction
+  } from 'express';
+export function validateEmployee(req:Request, res:Response, next:NextFunction) {
     
 }
 
-function addnewEmployee(params:Employee) {
-    
-}
