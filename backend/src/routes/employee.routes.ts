@@ -1,18 +1,23 @@
 import { Router, Request, Response } from 'express';
-import { getEmployeeByIdController, addnewEmployee, UpdateEmployeeController, DeleteEmployeeController } from '../controllers/employees.controllers';
-import { validateEmployee } from "../utils/validations/employees.validations";
+import { createEmployeeController, deleteEmployeeController, getEmployeeByIdController, getEmployeesController, updateEmployeeController } from '../controllers/employees.controllers';
+import { validateEmployee } from '../utils/validations/employees.validations';
+
+// New Router instance
 const router = Router();
 
-router.get('/', (req: Request, res: Response) => {
-    let instructions = "use /id for get a employee, /list to show all employees";
-    res.send("Welcome to the employee section \n" + instructions);
-});
+// Employees routes
+router.get('/', getEmployeesController);
+router.get('/:id', getEmployeeByIdController);
+router.post(
+  '/', 
+  validateEmployee, 
+  createEmployeeController 
+);
+router.put(
+  '/:id', 
+  validateEmployee,
+  updateEmployeeController
+);
+router.delete('/:id', deleteEmployeeController);
 
-router.get('/:id', (req: Request, res: Response) => {
-    getEmployeeByIdController;
-});
-router.post('/',validateEmployee, addnewEmployee);
-router.put('/:id', validateEmployee,UpdateEmployeeController);
-router.delete('/:id', DeleteEmployeeController);
-
-export default router
+export default router;
