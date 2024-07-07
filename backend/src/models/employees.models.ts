@@ -1,4 +1,4 @@
-export interface Employee{
+export interface Employee {
     employeeId?: number;
     firstName?: string;
     lastName?: string;
@@ -12,8 +12,21 @@ export interface Employee{
     salary?: number;
 
 }
+const employees: Array<Employee> = [];
+
 
 export function getEmployeeById(id: number) {
     throw new Error("Function not implemented.");
 }
+export const createEmployee = (employee: Employee): void => {
+    employees.push(employee);
+};
+
+export const updateEmployee = (employee: Employee): void => {
+    throw new Error("Function not implemented.");
+};
+
+export const deleteEmployee = (id: number): void => {
+    throw new Error("Function not implemented.");
+};
 
