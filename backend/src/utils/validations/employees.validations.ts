@@ -1,90 +1,103 @@
-import { Employee } from "../../models/employees.models";
 import {
-    Request,
-    Response,
-    NextFunction
-  } from 'express';
-export function validateEmployee(req:Request, res:Response, next:NextFunction) {
-    
+  Request,
+  Response,
+  NextFunction
+} from 'express';
+
+export const validateEmployee = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+
+  // Get data from request body
   const {
-    employeeId,
-    firstName,
-    lastName,
-    address,
+    id,
+    firstname,
+    lastname,
+    adress,
     dni,
-    birthDate,
+    date_nac,
     nationality,
-    phoneNumber,
+    phone,
     email,
     position,
-    salary
-
+    salary,
   } = req.body;
-  
+
+  // Create an array to store errors
   const errors = [];
-  if (!employeeId) {
+
+  // Validate data
+  if (!id) {
     errors.push('id is required');
   }
-  else if (typeof dni !== 'string') {
-    errors.push('dni must be a string');
+
+  if (!firstname) {
+    errors.push('firstname is required');
   }
-  
-  // Validación de birthDate
-  if (!birthDate) {
-    errors.push('birthDate is required');
-  } else if (isNaN(Date.parse(birthDate))) {
-    errors.push('birthDate must be a valid date');
+
+  if (!lastname) {
+      errors.push('lastname is required');
   }
-  
-  // Validación de nationality
-  if (!nationality) {
-    errors.push('nationality is required');
-  } else if (typeof nationality !== 'string') {
-    errors.push('nationality must be a string');
+
+  if (!adress) {
+      errors.push('adress is required');
   }
-  
-  // Validación de phoneNumber
-  if (!phoneNumber) {
-    errors.push('phoneNumber is required');
-  } else if (typeof phoneNumber !== 'string') {
-    errors.push('phoneNumber must be a string');
-  }
-  
-  // Validación de email
+
+  if (!dni) {
+      errors.push('dni is required');
+    }
+
+    if (!firstname) {
+      errors.push('dni is required');
+    }
+
+    if (!date_nac) {
+      errors.push('date nac is required');
+    }else {
+      // if less 18 age old
+    }
+
+    if (!nationality) {
+      errors.push('nationality is required');
+    }
+
   if (!email) {
     errors.push('email is required');
-  } else if (typeof email !== 'string') {
-    errors.push('email must be a string');
-  } else if (!/\S+@\S+\.\S+/.test(email)) {
-    errors.push('email must be a valid email address');
   }
-  
-  // Validación de position
+
+  if (!phone) {
+    errors.push('phone is required');
+  } else {
+    // Add more validations here
+    // e.g. password must be at least 8 chars long
+    if (phone.length < 11) {
+      errors.push('phone must be at least 11 chars long');
+    }
+  }
+
   if (!position) {
     errors.push('position is required');
-  } else if (typeof position !== 'string') {
-    errors.push('position must be a string');
   }
-  
-  // Validación de salary
+
   if (!salary) {
     errors.push('salary is required');
-  } else if (typeof salary !== 'number') {
-    errors.push('salary must be a number');
-  } else if (salary < 0) {
-    errors.push('salary must be a positive number');
+  } else {
+    if (salary <= 0 ){
+      errors.push('salary at least > zero')
+    }
   }
-  
-  // Devolvemos los errores si hay alguno
-  if (errors.length > 0) {
-    return res.status(400).json({ errors });
-  }
+
+  // If there are errors
+  // return 422 (Unprocessable Entity)
   if (errors.length) {
     return res.status(422).json({
       message: 'Validation failed',
       errors,
     });
   }
-  next();
-}
 
+  // Pass Employee data to the next middleware
+  next();
+};

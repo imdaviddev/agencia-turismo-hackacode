@@ -6,8 +6,7 @@ const router = Router();
 
 // Home routes
 router.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
-  connect();
+  res.send('Conectado!');
 });
 
 export default router;
