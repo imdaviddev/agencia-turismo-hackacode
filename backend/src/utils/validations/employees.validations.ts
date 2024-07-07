@@ -1,10 +1,103 @@
-import { Employee } from "../../models/employees.models";
 import {
-    Request,
-    Response,
-    NextFunction
-  } from 'express';
-export function validateEmployee(req:Request, res:Response, next:NextFunction) {
-    
-}
+  Request,
+  Response,
+  NextFunction
+} from 'express';
 
+export const validateEmployee = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+
+  // Get data from request body
+  const {
+    id,
+    firstname,
+    lastname,
+    adress,
+    dni,
+    date_nac,
+    nationality,
+    phone,
+    email,
+    position,
+    salary,
+  } = req.body;
+
+  // Create an array to store errors
+  const errors = [];
+
+  // Validate data
+  if (!id) {
+    errors.push('id is required');
+  }
+
+  if (!firstname) {
+    errors.push('firstname is required');
+  }
+
+  if (!lastname) {
+      errors.push('lastname is required');
+  }
+
+  if (!adress) {
+      errors.push('adress is required');
+  }
+
+  if (!dni) {
+      errors.push('dni is required');
+    }
+
+    if (!firstname) {
+      errors.push('dni is required');
+    }
+
+    if (!date_nac) {
+      errors.push('date nac is required');
+    }else {
+      // if less 18 age old
+    }
+
+    if (!nationality) {
+      errors.push('nationality is required');
+    }
+
+  if (!email) {
+    errors.push('email is required');
+  }
+
+  if (!phone) {
+    errors.push('phone is required');
+  } else {
+    // Add more validations here
+    // e.g. password must be at least 8 chars long
+    if (phone.length < 11) {
+      errors.push('phone must be at least 11 chars long');
+    }
+  }
+
+  if (!position) {
+    errors.push('position is required');
+  }
+
+  if (!salary) {
+    errors.push('salary is required');
+  } else {
+    if (salary <= 0 ){
+      errors.push('salary at least > zero')
+    }
+  }
+
+  // If there are errors
+  // return 422 (Unprocessable Entity)
+  if (errors.length) {
+    return res.status(422).json({
+      message: 'Validation failed',
+      errors,
+    });
+  }
+
+  // Pass Employee data to the next middleware
+  next();
+};
