@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import { updateEmployeeController, deleteEmployeeController, getEmployeeByIdController, getEmployeesController} from '../controllers/employees.controllers';
 import { validateEmployee } from '../utils/validations/employees.validations';
 
@@ -16,7 +16,7 @@ router.post(
 router.put(
   '/:id', 
   validateEmployee,
-  UpdateEmployeeController
+  updateEmployeeController
 );
 router.delete('/:id', deleteEmployeeController);
 
