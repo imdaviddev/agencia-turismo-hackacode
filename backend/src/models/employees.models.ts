@@ -1,18 +1,4 @@
 export interface Employee {
-<<<<<<< HEAD
-    employeeId?: number;
-    firstName?: string;
-    lastName?: string;
-    address?: string;
-    dni?: string;
-    birthDate?: Date;
-    nationality?: string;
-    phoneNumber?: string;
-    email?: string;
-    position?: string;
-    salary?: number;
-
-=======
     id: number;
     firstname: string;
     lastname: string;
@@ -24,27 +10,8 @@ export interface Employee {
     email: string;
     position: string;
     salary: number;
->>>>>>> 1775e07d31be872fe67803ce660cfaf15923413f
 }
-const employees: Array<Employee> = [];
 
-
-<<<<<<< HEAD
-export function getEmployeeById(id: number) {
-    throw new Error("Function not implemented.");
-}
-export const createEmployee = (employee: Employee): void => {
-    employees.push(employee);
-};
-
-export const updateEmployee = (employee: Employee): void => {
-    throw new Error("Function not implemented.");
-};
-
-export const deleteEmployee = (id: number): void => {
-    throw new Error("Function not implemented.");
-};
-=======
 const employees: Array<Employee> = [
   {
       id: 1,
@@ -109,5 +76,4 @@ export const getEmployees = (): Array<Employee> => {
     const index = employees.findIndex(u => u.id === id);
     employees.splice(index, 1);
   };
->>>>>>> 1775e07d31be872fe67803ce660cfaf15923413f
 
