@@ -125,7 +125,6 @@ class CustomerController {
       res.status(500).json({ message: 'Internal Server Error: ' + error });
     }
   };
-
 }
 
 export default CustomerController;
