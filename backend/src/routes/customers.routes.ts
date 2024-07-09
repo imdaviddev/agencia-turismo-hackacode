@@ -1,23 +1,25 @@
-import { Router, Request, Response } from 'express';
-import { createCustomerController, deleteCustomerController, getCustomerByIdController, getCustomersController, updateCustomerController } from '../controllers/customers.controllers';
+import { Router } from 'express';
 import { validateCustomer } from '../utils/validations/customers.validations';
+import CustomerController from '../controllers/customers.controllers';
+// Instanciación de los repositorios, servicios y controladores
+const customerController = new CustomerController();
 
-// New Router instance
+// Nueva instancia de Router
 const router = Router();
 
-// Customers routes
-router.get('/', getCustomersController);
-router.get('/:id', getCustomerByIdController);
+// Definición de las rutas para clientes
+router.get('/', customerController.getCustomers);
+router.get('/:id', customerController.getCustomerById);
 router.post(
   '/', 
-  validateCustomer, 
-  createCustomerController 
+  validateCustomer, // Middleware de validación
+  customerController.createCustomer
 );
 router.put(
   '/:id', 
-  validateCustomer,
-  updateCustomerController
+  validateCustomer, // Middleware de validación
+  customerController.updateCustomer
 );
-router.delete('/:id', deleteCustomerController);
+router.delete('/:id', customerController.deleteCustomer);
 
 export default router;
